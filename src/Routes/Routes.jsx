@@ -11,7 +11,7 @@ import QRLoginPage from "@/components/Authentication/QRLogin";
 import OrdersDashboard from "@/Routes/OrdersDashboard/OrdersDashboard";
 import KitchenView from "@/Routes/KitchenView/KitchenView";
 import CEODashboard from "@/Routes/CEODashboard/CEODashboard";
-import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
+import ProtectedRoute from "../../src/components/ProtectedRoutes/ProtectedRoutes";
 
 const Router = () => {
     return (
