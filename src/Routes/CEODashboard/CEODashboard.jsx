@@ -3,6 +3,7 @@ import { api } from "@/API/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { ORDER_STATUS } from "@/constants/appConstants";
 
 const StatCard = ({ title, value, className = "" }) => (
     <Card className={`bg-zinc-800 text-white ${className}`}>
@@ -41,9 +42,10 @@ const CeoDashboard = () => {
 
     const totalRevenue = stats?.total_revenue || 0;
     const totalOrders = stats?.total_orders || 0;
-    const pendingCount = stats?.status_breakdown.find(s => s.status === "pending")?.count || 0;
-    const inProgressCount = stats?.status_breakdown.find(s => s.status === "in_progress")?.count || 0;
-    const completedCount = stats?.status_breakdown.find(s => s.status === "completed")?.count || 0;
+    const pendingCount = stats?.status_breakdown.find(s => s.status === ORDER_STATUS.PENDING)?.count || 0;
+    const inProgressCount = stats?.status_breakdown.find(s => s.status === ORDER_STATUS.IN_PROGRESS)?.count || 0;
+    const completedCount = stats?.status_breakdown.find(s => s.status === ORDER_STATUS.COMPLETED)?.count || 0;
+    const cancelledCount = stats?.status_breakdown.find(s => s.status === ORDER_STATUS.CANCELLED)?.count || 0;
 
     const getButtonClass = (buttonPeriod) => {
         return period === buttonPeriod
@@ -80,10 +82,11 @@ const CeoDashboard = () => {
                             <StatCard title="Total Revenue" value={`$${totalRevenue.toFixed(2)}`} />
                             <StatCard title="Total Orders" value={totalOrders} />
                         </div>
-                        <div className="grid grid-cols-3 gap-4 mt-4">
+                        <div className="grid grid-cols-4 gap-4 mt-4">
                             <StatCard title="Pending Orders" value={pendingCount} className="bg-red-600" />
                             <StatCard title="In Progress Orders" value={inProgressCount} className="bg-yellow-500" />
                             <StatCard title="Completed Orders" value={completedCount} className="bg-green-600" />
+                            <StatCard title="Cancelled Orders" value={cancelledCount} className="bg-gray-600" />
                         </div>
                     </div>
                     <div>

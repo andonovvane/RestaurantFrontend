@@ -1,11 +1,7 @@
 import axios from "axios";
 
-const DEV_URL = "http://127.0.0.1:8000/";
-const PROD_URL = "https://restaurant-app-test-4156e9523345.herokuapp.com/";
-
-// Switch automatically depending on environment
-export const API_BASE_URL =
-    import.meta.env.MODE === "production" ? PROD_URL : DEV_URL;
+const DEFAULT_DEV_URL = "http://127.0.0.1:8000/";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || DEFAULT_DEV_URL;
 
 export const api = axios.create({
     baseURL: API_BASE_URL,

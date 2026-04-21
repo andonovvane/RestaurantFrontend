@@ -12,6 +12,7 @@ import OrdersDashboard from "@/Routes/OrdersDashboard/OrdersDashboard";
 import KitchenView from "../Routes/KitchenView/KitchenView";
 import CEODashboard from "../Routes/CEODashboard/CEODashboard";
 import ProtectedRoute from "../../src/components/ProtectedRoutes/ProtectedRoutes";
+import { USER_ROLES } from "@/constants/appConstants";
 
 const Router = () => {
     return (
@@ -22,7 +23,7 @@ const Router = () => {
                 <Route path="/qr-login/" element={<QRLoginPage />} />
 
                 {/* Customer routes - any authenticated user */}
-                <Route element={<ProtectedRoute allowedRoles={['client', 'waiter', 'kitcher', 'ceo']} />}>
+                <Route element={<ProtectedRoute allowedRoles={[USER_ROLES.CLIENT, USER_ROLES.WAITER, USER_ROLES.KITCHER, USER_ROLES.CEO]} />}>
                     <Route path="/" element={<HomePage />} />
                     <Route element={<Layout />}>
                         <Route path="/wineselection/" element={<WineSelection />} />
@@ -34,17 +35,17 @@ const Router = () => {
                 </Route>
 
                 {/* Staff routes - waiters and CEO */}
-                <Route element={<ProtectedRoute allowedRoles={['waiter', 'ceo']} />}>
+                <Route element={<ProtectedRoute allowedRoles={[USER_ROLES.WAITER, USER_ROLES.CEO]} />}>
                     <Route path="/orders/" element={<OrdersDashboard />} />
                 </Route>
 
                 {/* Kitchen routes - kitcher and CEO */}
-                <Route element={<ProtectedRoute allowedRoles={['kitcher', 'ceo']} />}>
+                <Route element={<ProtectedRoute allowedRoles={[USER_ROLES.KITCHER, USER_ROLES.CEO]} />}>
                     <Route path="/kitchen/" element={<KitchenView />} />
                 </Route>
 
                 {/* CEO only routes */}
-                <Route element={<ProtectedRoute allowedRoles={['ceo']} />}>
+                <Route element={<ProtectedRoute allowedRoles={[USER_ROLES.CEO]} />}>
                     <Route path="/dashboard/" element={<CEODashboard />} />
                 </Route>
             </Routes>

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import OrderPopUp from "@/components/OrderPopUp/OrderPopUp";
@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetDescri
 
 const Header = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [showOrderPopup, setShowOrderPopup] = useState(false);
     const items = useSelector(state => state.order.items);
     const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -24,9 +25,14 @@ const Header = () => {
         navigate("/signin/");
     };
 
+    const isMenuPage = location.pathname === "/menupage/";
+    const headerClassName = isMenuPage
+        ? "fixed top-0 left-0 w-full z-50 bg-[#f38a73] text-[#3f180d] flex justify-between items-center px-8 py-4 border-b border-[#8c4a3f]/45"
+        : "fixed top-0 left-0 w-full z-50 bg-neutral-950 text-white flex justify-between items-center px-8 py-4";
+
     return (
         <>
-            <div className="fixed top-0 left-0 w-full z-50 bg-neutral-950 text-white flex justify-between items-center px-8 py-4">
+            <div className={headerClassName}>
                 <div className="cursor-pointer" onClick={handleBackClick}>&lt;</div>
 
                 <div className="cursor-pointer font-display text-xl" onClick={handleLogoClick}>

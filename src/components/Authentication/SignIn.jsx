@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { api } from "@/API/api";
 import { login, selectDetails } from "@/store/slices/userSlice";
+import { USER_ROLES } from "@/constants/appConstants";
 
 const SignIn = () => {
     const [email, setEmail] = useState("");
@@ -46,11 +47,11 @@ const SignIn = () => {
             console.log("Dispatched login with:", { accessToken, details: userDetails });
 
             // Redirect based on role
-            if (userDetails.role === "ceo") {
+            if (userDetails.role === USER_ROLES.CEO) {
                 navigate("/dashboard/");
-            } else if (userDetails.role === "waiter") {
+            } else if (userDetails.role === USER_ROLES.WAITER) {
                 navigate("/orders/");
-            } else if (userDetails.role === "kitcher") {
+            } else if (userDetails.role === USER_ROLES.KITCHER) {
                 navigate("/kitchen/");
             } else {
                 navigate("/");
